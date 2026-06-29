@@ -16,7 +16,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Chromium for Playwright (now works with 1.48.0)
+# THIS IS THE CRITICAL LINE – INSTALL CHROMIUM
 RUN playwright install chromium
 
 COPY tg_flood.py .
