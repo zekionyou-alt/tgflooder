@@ -1,6 +1,6 @@
-FROM python:3.11-slim
+FROM python:3.13-slim
 
-# Install Chrome and dependencies
+# Install Chrome and system dependencies for Playwright
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
@@ -16,13 +16,15 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
     && rm -rf /var/lib/apt/lists/*
 
+# Set Chrome path for Playwright
+ENV PLAYWRIGHT_CHROME_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+
 WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY tg_flood_cloud.py .
+COPY tg_flood.py .
 COPY keepalive.py .
 
-# Run the keepalive server + the flood script
 CMD ["python", "keepalive.py"]
