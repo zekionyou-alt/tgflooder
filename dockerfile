@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Install system dependencies for Playwright
+# Install Chrome and dependencies
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
@@ -22,5 +22,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY tg_flood_cloud.py .
+COPY keepalive.py .
 
-CMD ["python", "tg_flood_cloud.py"]
+# Run the keepalive server + the flood script
+CMD ["python", "keepalive.py"]
