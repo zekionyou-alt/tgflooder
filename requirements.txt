@@ -1,2 +1,2 @@
-playwright==1.48.0 --no-deps
+playwright==1.48.0
 flask
